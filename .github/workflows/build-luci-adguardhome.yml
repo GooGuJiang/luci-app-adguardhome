@@ -1,0 +1,47 @@
+name: Compile luci-app-adguardhome
+
+on:
+  push:
+    branches:
+      - main # 如果你使用master分支，将此处改为master
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc wget unzip
+
+    - name: Clone OpenWRT
+      run: |
+        git clone https://github.com/openwrt/openwrt.git
+        cd openwrt
+        # 此处需要你提供OpenWRT的版本或者commit哈希值来检出相应的版本
+
+    - name: Prepare and Update Feeds
+      run: |
+        cd openwrt
+        # 将你的luci-app-adguardhome源加入到feeds.conf.default
+        echo "src-link custom $GITHUB_WORKSPACE" >> feeds.conf.default
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+    - name: Copy Config and Compile
+      run: |
+        cd openwrt
+        cp $GITHUB_WORKSPACE/myconfig .config
+        make menuconfig # 不需要实际交互，但有助于解决依赖关系
+        make package/luci-app-adguardhome/compile
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: luci-app-adguardhome
+        path: openwrt/bin/packages/*/luci/luci-app-adguardhome*.ipk
+
