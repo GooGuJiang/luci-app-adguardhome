@@ -67,19 +67,17 @@ doupx(){
 	Arch="amd64"
 	;;
 	"mipsel")
-	Arch="mipsel"
+	Arch="mipsel_softfloat"
 	;;
 	"mips64el")
-	Arch="mips64el"
-	Arch="mipsel"
+	Arch="mips64el_softfloat"
 	echo -e "mips64el use $Arch may have bug" 
 	;;
 	"mips")
-	Arch="mips"
+	Arch="mips_softfloat"
 	;;
 	"mips64")
-	Arch="mips64"
-	Arch="mips"
+	Arch="mips64_softfloat"
 	echo -e "mips64 use $Arch may have bug" 
 	;;
 	"arm")
@@ -130,19 +128,17 @@ doupdate_core(){
 	Arch="amd64"
 	;;
 	"mipsel")
-	Arch="mipsle"
+	Arch="mipsle_softfloat"
 	;;
 	"mips64el")
-	Arch="mips64le"
-	Arch="mipsle"
+	Arch="mips64le_softfloat"
 	echo -e "mips64el use $Arch may have bug" 
 	;;
 	"mips")
-	Arch="mips"
+	Arch="mips_softfloat"
 	;;
 	"mips64")
-	Arch="mips64"
-	Arch="mips"
+	Arch="mips64_softfloat"
 	echo -e "mips64 use $Arch may have bug" 
 	;;
 	"arm")
