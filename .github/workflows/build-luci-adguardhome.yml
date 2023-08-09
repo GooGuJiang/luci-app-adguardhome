@@ -3,7 +3,7 @@ name: Compile luci-app-adguardhome
 on:
   push:
     branches:
-      - main # 如果你使用master分支，将此处改为master
+      - master # 如果你使用master分支，将此处改为master
 
 jobs:
   compile:
